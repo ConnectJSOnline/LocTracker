@@ -14,8 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     ListView l;
     boolean StartLogging = false;
     Intent loc_pooling_service;
-
+    int RequestsCounts = 0;
     CharSequence ApplicationOriginalTitle;
 
 
@@ -65,28 +68,39 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         ApplicationOriginalTitle = this.getTitle();
         this.setTitle(ApplicationOriginalTitle + "-Disconnected");
 
-
-        Button btnStart = (Button) findViewById(R.id.btnStart);
-        btnStart.setOnClickListener(new View.OnClickListener() {
+        ToggleButton btnStartStop = (ToggleButton) findViewById(R.id.toggleButtonInitiate);
+        btnStartStop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                mGoogleApiClient.reconnect();
-                StartLogging = true;
-                LogLocation(null);
-                MainActivity.this.setTitle(ApplicationOriginalTitle + "-Connected");
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    mGoogleApiClient.reconnect();
+                    StartLogging = true;
+                    LogLocation(null);
+                    MainActivity.this.setTitle(ApplicationOriginalTitle + " - Connected");
+                }
+                else
+                {
+                    mGoogleApiClient.disconnect();
+                    StartLogging = false;
+                    LogLocation(null);
+                    MainActivity.this.setTitle(ApplicationOriginalTitle + " - Disconnected");
+                }
             }
         });
 
-        Button btnStop = (Button) findViewById(R.id.btnStop);
-        btnStop.setOnClickListener(new View.OnClickListener() {
+
+        ((Button)findViewById(R.id.btnExit)).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                mGoogleApiClient.disconnect();
-                StartLogging = false;
-                LogLocation(null);
-                MainActivity.this.setTitle(ApplicationOriginalTitle + "-Disconnected");
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
             }
         });
+
+
+
+
     }
 
 
@@ -169,7 +183,12 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         double _currentLatitude, _currentLongitude;
 
 
-        if(location==null) data.clear();
+        if(location==null)
+        {
+            data.clear();
+            RequestsCounts = 0;
+            ((TextView)findViewById(R.id.txtStatus)).setText(Integer.toString(RequestsCounts));
+        }
         else
         {
             _currentLatitude = location.getLatitude();
@@ -194,6 +213,9 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
             loc_pooling_service.putExtra("LAT",currentLatitude);
             loc_pooling_service.putExtra("LONG",currentLongitude);
             startService(loc_pooling_service);
+            RequestsCounts++;
+            ((TextView)findViewById(R.id.txtStatus)).setText(Integer.toString(RequestsCounts));
+
         }catch(Exception e)
         {
 
