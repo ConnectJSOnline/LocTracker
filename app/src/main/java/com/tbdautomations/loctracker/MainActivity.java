@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        l = (ListView) findViewById(R.id.lstData);
-
         mGoogleApiClient = new GoogleApiClient.Builder(MainActivity.this)
                 // The next two lines tell the new client that “this” current class will handle connection stuff
                 .addConnectionCallbacks(MainActivity.this)
@@ -89,16 +87,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
                 MainActivity.this.setTitle(ApplicationOriginalTitle + "-Disconnected");
             }
         });
-
-
-        Button btnAction = (Button)findViewById(R.id.btnAction);
-        btnAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
     }
 
 
@@ -127,10 +115,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         */
     }
 
-    /**
-     * If connected get lat and long
-     *
-     */
+
     @Override
     public void onConnected(Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -200,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         }
 
         ArrayAdapter<String> a = new ArrayAdapter<String>(this,R.layout.listdata,data);
-        l.setAdapter(a);
+
 
         if(!StartLogging || !isReallyChanged) return;
 

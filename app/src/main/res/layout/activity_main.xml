@@ -16,30 +16,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnStart" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/btnStart"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:visibility="visible">
-
-        <ListView
-            android:id="@+id/lstData"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
-
-    <Button
-        android:text="Do Something"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnAction"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/btnStop"
-        android:visibility="invisible" />
-
     <Button
         android:text="Stop"
         android:layout_width="wrap_content"
@@ -47,5 +23,18 @@
         android:id="@+id/btnStop"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/btnStart" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/toggleButton"
+        android:background="@drawable/start_stop_button"
+        android:layout_marginTop="124dp"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:textOn=" "
+        android:textOff=" "
+        android:textAllCaps="false"
+        android:elevation="0dp" />
 
 </RelativeLayout>
