@@ -134,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     @Override
     public void onConnected(Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED
                 ) {
 
             ActivityCompat.requestPermissions(MainActivity.this,
@@ -180,21 +180,29 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
     public void LogLocation(Location location)
     {
-        if(!StartLogging) return;
+        boolean isReallyChanged = false;
+        double _currentLatitude, _currentLongitude;
 
-        if(location==null)
-        {
-            data.clear();
-        }
+
+        if(location==null) data.clear();
         else
         {
-            currentLatitude = location.getLatitude();
-            currentLongitude = location.getLongitude();
-            data.add("Location (" + currentLatitude + " , " + currentLongitude + ")");
+            _currentLatitude = location.getLatitude();
+            _currentLongitude = location.getLongitude();
+
+            if(_currentLatitude!=currentLatitude || _currentLongitude != currentLongitude)
+            {
+                currentLatitude = _currentLatitude;
+                currentLongitude = _currentLongitude;
+                isReallyChanged = true;
+                data.add("Location (" + currentLatitude + " , " + currentLongitude + ")");
+            }
         }
 
         ArrayAdapter<String> a = new ArrayAdapter<String>(this,R.layout.listdata,data);
         l.setAdapter(a);
+
+        if(!StartLogging || !isReallyChanged) return;
 
         try {
             loc_pooling_service.setAction("SendLocation");
