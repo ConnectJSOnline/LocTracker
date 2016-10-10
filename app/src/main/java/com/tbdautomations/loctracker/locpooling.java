@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.PublicKey;
 
 
 /**
@@ -33,6 +34,7 @@ public class locpooling extends IntentService {
             final String action = intent.getAction();
             final Double Latitude = intent.getDoubleExtra("LAT",0);
             final Double Longitude = intent.getDoubleExtra("LONG",0);
+            final String Phone = intent.getStringExtra("Phone");
 
             if(action=="SendLocation" && Latitude!=0 && Longitude != 0)
             {
@@ -58,10 +60,19 @@ public class locpooling extends IntentService {
                 }
 
             }
+
+            if(action=="CheckAccount" && Phone != null)
+            {
+
+
+            }
         }
     }
 
-
+    public boolean CheckIfAlreadyExists(String Phone)
+    {
+        return false;
+    }
 
 
 }

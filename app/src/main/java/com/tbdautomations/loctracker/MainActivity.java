@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     private double currentLatitude;
     private double currentLongitude;
     ArrayList<String> data = new ArrayList<String>();
-    ListView l;
     boolean StartLogging = false;
     Intent loc_pooling_service;
     int RequestsCounts = 0;
@@ -97,9 +96,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
                 System.exit(0);
             }
         });
-
-
-
 
     }
 

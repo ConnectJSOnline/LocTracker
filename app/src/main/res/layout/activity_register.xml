@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#099694"
+    tools:context="com.tbdautomations.loctracker.RegisterActivity">
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10px">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" android:padding="10dp"
+            android:textAlignment="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gmaps"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
+                />
+            <TextView
+                android:text="Location Tracker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lblTitle"
+                android:textStyle="normal"
+                android:textSize="30sp"
+                android:textColor="#FFF"
+                android:layout_marginTop="8dp"
+                />
+        </LinearLayout>
+    </TableRow>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="40px"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+        <TextView
+            android:text="Your Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="71dp"
+            android:id="@+id/lblNickName"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="#FFF"
+            android:padding="10dp"
+            android:layout_weight="1"
+
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/txtNickName"
+            android:layout_weight="1"
+            android:padding="20dp"
+            android:background="#FFF"
+            android:textColor="#000"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:text="Phone No"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/lblPhoneNo"
+            android:textStyle="normal"
+            android:textSize="20sp"
+            android:textColor="#FFF"
+            android:padding="10dp"
+            android:layout_weight="1"
+
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/txtPhone"
+            android:layout_weight="1"
+            android:padding="20dp"
+            android:background="#FFF"
+            android:textColor="#000"
+            android:textAlignment="center"
+
+            />
+
+
+
+        <Button
+            android:text="Register My Device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_marginTop="35dp"
+            android:id="@+id/btnRegister"
+            android:padding="20dp"
+            android:background="#FFF"/>
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
