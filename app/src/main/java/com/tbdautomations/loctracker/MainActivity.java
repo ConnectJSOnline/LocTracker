@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         });
 
 
-        ((Button)findViewById(R.id.btnExit)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnExit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
