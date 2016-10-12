@@ -3,6 +3,7 @@ package com.tbdautomations.loctracker;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
+import android.content.res.Resources;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -39,18 +40,10 @@ public class locpooling extends IntentService {
             if(action=="SendLocation" && Latitude!=0 && Longitude != 0)
             {
                 try {
-                    URL url = new URL(String.format("http://tbdautomations.azurewebsites.net/api/Gateway/SendLatLong?Lat=%1s&Long=%2s",Latitude,Longitude));
+                    URL url = new URL(String.format(Application.GatewayIP +"/api/LocTracking/SendLatLong?Lat=%1s&Long=%2s&Token=%3s",Latitude,Longitude,Application.PhoneNo));
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("POST");
-                    urlConnection.getResponseCode();
-                    /*
-                    //In Case you want to process Output
-                    byte[] data = new byte[1024];
-                    in.read(data);
-                    String Response = new String(data);
-                    if (Response=="Hello"){
-                    }
-                    */
+                    int Code = urlConnection.getResponseCode();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -68,11 +61,4 @@ public class locpooling extends IntentService {
             }
         }
     }
-
-    public boolean CheckIfAlreadyExists(String Phone)
-    {
-        return false;
-    }
-
-
 }
