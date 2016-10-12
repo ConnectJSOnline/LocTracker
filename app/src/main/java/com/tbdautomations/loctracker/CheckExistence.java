@@ -1,12 +1,15 @@
 package com.tbdautomations.loctracker;
 
-import android.app.*;
-import android.content.res.Resources;
-import android.icu.text.Replaceable;
+
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
-import android.view.inputmethod.InputMethodSession;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,12 +23,30 @@ import java.net.URL;
 
 public class CheckExistence extends AsyncTask<String,Void,Boolean>
 {
-
     public Handler.Callback callback ;
 
     @Override
     protected Boolean doInBackground(String... data) {
         try {
+
+            /*
+            URL url = new URL(String.format(Application.GatewayIP +"api/LocTracking/CheckAccount?Phone=%1s",data));
+            StringRequest request = new StringRequest(Request.Method.POST, url.toString(), new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    String Response  = new String(response);
+                    Boolean Stat = Boolean.parseBoolean(Response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+
+            AppSingleton.getInstance(Application.context).addToRequestQueue(request,"com.tbdautomations.com.loctracker.pooling");
+            */
+
             URL url = new URL(String.format(Application.GatewayIP +"api/LocTracking/CheckAccount?Phone=%1s",data));
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("POST");
@@ -40,15 +61,12 @@ public class CheckExistence extends AsyncTask<String,Void,Boolean>
             }
 
             Boolean Stat = Boolean.parseBoolean(Response);
-            Thread.sleep(3000);
             return Stat;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
+        }  finally {
 
         }
         return  false;
